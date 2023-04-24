@@ -12,7 +12,11 @@ COMMIT_MESSAGE=$(cat "$1")
 
 if [ -z "$ISSUE_ID" ]; then
     echo -e "${BRed}Branch não está no padrão que deveria mestre... ${NC}"
-    exit 1
+    read -p "Confirmar commit? [y/N]: " $confirm
+    $confirm=$(echo $confirm | tr '[:lower:]' '[:upper:]')
+    if [ $confirm -eq "N" ]; then
+        exit 1
+    fi
 fi
 
 # i.g. HEY-1: HEY-1: my feature
